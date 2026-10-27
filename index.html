@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Marko Petkovski — WordPress Developer & Graphic Designer</title>
+<meta name="description" content="WordPress developer and graphic designer with 10+ years of experience, based in Novi Sad, Serbia. Browse my websites or my design work."/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0d0d0d;--surface:#141414;--card:#1a1a1a;--border:#2a2a2a;--accent:#c9a96e;--accent2:#e8c98a;--text:#f0ece4;--muted:#888}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.6}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+
+/* HERO */
+.hero{position:relative;min-height:calc(100vh - 72px);min-height:calc(100svh - 72px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);align-items:end}
+.hero-photo{position:absolute;inset:0;background:#111;overflow:hidden}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:38% 18%;display:block}
+.hero-photo::after{content:'';position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(13,13,13,.78) 0%,rgba(13,13,13,.35) 35%,rgba(13,13,13,0) 60%),
+  linear-gradient(0deg,var(--bg) 0%,rgba(13,13,13,.55) 22%,rgba(13,13,13,0) 50%)}
+.hero-fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:clamp(120px,22vw,320px);font-weight:900;font-style:italic;color:#1c1c1c;letter-spacing:-8px}
+.hero-photo.no-img .hero-fallback{display:flex}
+.hero-photo.no-img img{display:none}
+
+.hero-copy{grid-column:1;position:relative;z-index:2;padding:0 60px 72px;align-self:end}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(52px,7.2vw,118px);font-weight:900;line-height:.92;letter-spacing:-3px}
+.hero-name span{display:block}
+.hero-name .second{font-style:italic;color:var(--accent);margin-left:.4em}
+.hero-role{margin-top:28px;font-size:16px;color:var(--text);font-weight:400;max-width:420px;line-height:1.6}
+.hero-meta{margin-top:6px;font-size:14px;color:var(--muted);font-weight:300}
+
+
+/* CHOOSER */
+.choose{padding:0 60px;max-width:1400px;margin:0 auto;position:relative;z-index:2}
+.section-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:36px;display:flex;align-items:center;gap:16px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.door{display:flex;flex-direction:column;justify-content:space-between;min-height:340px;padding:36px;background:var(--card);border:1px solid var(--border);position:relative;overflow:hidden;transition:border-color .3s,background .3s}
+.door:hover{border-color:var(--accent);background:#1d1c19}
+.door-kind{font-size:12px;color:var(--accent);letter-spacing:1px}
+.door h2{font-family:'Playfair Display',serif;font-size:clamp(34px,4vw,54px);font-weight:700;letter-spacing:-1.5px;line-height:1.02;margin:14px 0 16px}
+.door p{font-size:14px;color:var(--muted);line-height:1.8;font-weight:300;max-width:420px}
+.door-foot{display:flex;justify-content:space-between;align-items:center;margin-top:36px;padding-top:22px;border-top:1px solid var(--border);font-size:13px}
+.door-foot .arrow{width:42px;height:42px;border:1px solid var(--border);border-radius:50%;display:grid;place-items:center;color:var(--accent);transition:transform .3s,background .3s,color .3s,border-color .3s}
+.door:hover .arrow{transform:translate(4px,-4px);background:var(--accent);color:#0d0d0d;border-color:var(--accent)}
+
+/* ABOUT: timeline + skills */
+.about{padding:120px 60px 100px;max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr;gap:80px}
+.timeline{list-style:none;position:relative}
+.timeline::before{content:'';position:absolute;left:119px;top:8px;bottom:8px;width:1px;background:var(--border)}
+.timeline li{display:grid;grid-template-columns:100px 1fr;gap:40px;padding:0 0 34px;position:relative}
+.timeline li::before{content:'';position:absolute;left:114px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:1px solid var(--accent)}
+.timeline li:first-child::before{background:var(--accent)}
+.tl-years{font-size:13px;color:var(--muted);padding-top:4px;text-align:right;white-space:nowrap}
+.tl-role{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;letter-spacing:-.3px;line-height:1.25}
+.tl-org{font-size:14px;color:var(--muted);font-weight:300;margin-top:4px}
+.skills{display:flex;flex-wrap:wrap;gap:8px}
+.skill{font-size:12px;letter-spacing:1px;padding:8px 14px;border:1px solid var(--border);color:var(--text);border-radius:2px;transition:border-color .2s,color .2s}
+.skill:hover{border-color:var(--accent);color:var(--accent2)}
+.contact{margin-top:56px}
+.contact p{font-size:14px;color:var(--muted);font-weight:300;line-height:1.8;margin-bottom:18px}
+.links{display:flex;flex-wrap:wrap;gap:12px}
+.links a{font-size:13px;padding:11px 20px;border:1px solid var(--border);transition:border-color .2s,color .2s}
+.links a:hover{border-color:var(--accent);color:var(--accent)}
+.links a.primary{background:var(--accent);color:#0d0d0d;border-color:var(--accent);font-weight:500}
+.links a.primary:hover{background:var(--accent2);color:#0d0d0d}
+
+footer{padding:36px 60px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;max-width:1400px;margin:0 auto}
+
+/* one orchestrated entrance, hero only */
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.hero-name .first{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.hero-name .second{animation:rise .9s .12s cubic-bezier(.2,.7,.2,1) both}
+.hero-role,.hero-meta{animation:rise .9s .3s cubic-bezier(.2,.7,.2,1) both}
+@media(max-width:700px){html{scroll-padding-top:64px}.hero{min-height:calc(100svh - 64px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:calc(100svh - 72px)}
+  .hero-photo img{object-position:34% 15%}
+  .hero-photo::after{background:linear-gradient(0deg,var(--bg) 0%,rgba(13,13,13,.8) 34%,rgba(13,13,13,.1) 72%)}
+  .hero-copy{padding:0 24px 48px}
+  .hero-name{letter-spacing:-2px}
+  .choose{padding:0 24px}
+  .doors{grid-template-columns:1fr}
+  .door{min-height:280px;padding:28px}
+  .about{grid-template-columns:1fr;gap:64px;padding:88px 24px 72px}
+  .timeline::before{left:7px}
+  .timeline li{grid-template-columns:1fr;gap:2px;padding-left:34px}
+  .timeline li::before{left:2px}
+  .tl-years{text-align:left;padding-top:0}
+  footer{padding:28px 24px;flex-direction:column;gap:8px}
+}
+
+/* ===== SITE MENU ===== */
+.site-nav{position:sticky;top:0;z-index:200;background:rgba(13,13,13,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.site-nav-inner{max-width:1400px;margin:0 auto;height:72px;padding:0 60px;display:flex;align-items:center;justify-content:space-between}
+.site-mark{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text);text-decoration:none}
+.site-links{list-style:none;display:flex;gap:36px}
+.site-links a{font-size:13px;color:var(--muted);text-decoration:none;padding:6px 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.site-links a:hover{color:var(--accent)}
+.site-links a[aria-current]{color:var(--text);border-bottom-color:var(--accent)}
+.site-nav-toggle{display:none;background:none;border:1px solid var(--border);width:44px;height:44px;border-radius:2px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.site-nav-toggle span{display:block;width:18px;height:1px;background:var(--text);transition:transform .25s}
+.site-nav-toggle[aria-expanded="true"] span:first-child{transform:translateY(3.5px) rotate(45deg)}
+.site-nav-toggle[aria-expanded="true"] span:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+.site-nav a:focus-visible,.site-nav button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+header{padding-top:56px!important}
+@media(max-width:700px){
+  .site-nav-inner{height:64px;padding:0 24px}
+  .site-nav-toggle{display:flex}
+  .site-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:#0d0d0d;border-bottom:1px solid var(--border);padding:8px 24px 16px}
+  .site-links.open{display:flex}
+  .site-links a{display:block;padding:16px 0;font-size:15px;border-bottom:1px solid var(--border)}
+  .site-links li:last-child a{border-bottom:none}
+  .site-links a[aria-current]{border-bottom-color:var(--border);color:var(--accent)}
+  header{padding-top:40px!important}
+}
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="Main">
+  <div class="site-nav-inner">
+    <a class="site-mark" href="index.html" aria-label="Marko Petkovski, home">MP</a>
+    <button class="site-nav-toggle" aria-expanded="false" aria-controls="siteLinks" aria-label="Menu"><span></span><span></span></button>
+    <ul class="site-links" id="siteLinks">
+      <li><a href="index.html" id="navHome" aria-current="page">Home</a></li>
+      <li><a href="portfolio/portfolio.html">Websites</a></li>
+      <li><a href="design/marko-portfolio-cards.html">Designs</a></li>
+      <li><a href="#about" id="navAbout">About</a></li>
+    </ul>
+  </div>
+</nav>
+<script>
+(function(){var b=document.querySelector('.site-nav-toggle'),l=document.getElementById('siteLinks');
+b.addEventListener('click',function(){var o=l.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&l.classList.contains('open')){l.classList.remove('open');b.setAttribute('aria-expanded','false');b.focus()}});})();
+</script>
+<script>
+/* highlight About while the about section is on screen */
+(function(){var h=document.getElementById('navHome'),a=document.getElementById('navAbout'),s=document.getElementById('about');
+if(!('IntersectionObserver' in window))return;
+new IntersectionObserver(function(e){var on=e[0].isIntersecting;
+ if(on){h.removeAttribute('aria-current');a.setAttribute('aria-current','location')}
+ else{a.removeAttribute('aria-current');h.setAttribute('aria-current','page')}},
+ {rootMargin:'-45% 0px -45% 0px'}).observe(s);})();
+</script>
+
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-photo" id="heroPhoto">
+    <img src="marko.jpg" alt="Portrait of Marko Petkovski" onerror="this.parentElement.classList.add('no-img')"/>
+    <div class="hero-fallback" aria-hidden="true">MP</div>
+  </div>
+
+  <div class="hero-copy">
+    <h1 class="hero-name"><span class="first">Marko</span><span class="second">Petkovski</span></h1>
+    <p class="hero-role">WordPress developer and graphic designer with 10+ years of experience. I build the website and design the brand behind it, from concept to launch.</p>
+    <p class="hero-meta">Novi Sad, Serbia</p>
+  </div>
+</section>
+
+<!-- CHOOSE A PORTFOLIO -->
+<section class="choose" id="work" aria-labelledby="work-label">
+  <div class="section-label" id="work-label">Choose a portfolio</div>
+  <div class="doors">
+    <a class="door" href="portfolio/portfolio.html">
+      <div>
+        <span class="door-kind">Web development</span>
+        <h2>Websites</h2>
+        <p>Custom sites built for clients in real estate, hospitality, education and e-commerce, each with a full case study.</p>
+      </div>
+      <div class="door-foot"><span>View websites</span><span class="arrow" aria-hidden="true">↗</span></div>
+    </a>
+    <a class="door" href="design/marko-portfolio-cards.html">
+      <div>
+        <span class="door-kind">Graphic design</span>
+        <h2>Designs</h2>
+        <p>Branding, print and graphic design created for clients over ten years. Open any image full size.</p>
+      </div>
+      <div class="door-foot"><span>View designs</span><span class="arrow" aria-hidden="true">↗</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <div class="section-label">Work history</div>
+    <ol class="timeline" id="timeline"></ol>
+  </div>
+  <div>
+    <div class="section-label">Skills</div>
+    <div class="skills" id="skills"></div>
+
+    <div class="contact">
+      <p>Have a project in mind? Get in touch.</p>
+      <div class="links" id="links"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© <span id="yr"></span> Marko Petkovski</span>
+  <span>Novi Sad, Serbia</span>
+</footer>
+
+<script>
+/* ============================================================
+   EDIT HERE — your LinkedIn info
+   Newest first. Keep each entry short: years, role, company.
+   ============================================================ */
+const EXPERIENCE = [
+  { years: "2020 – Present", role: "WordPress & Shopify Developer",          org: "Social Upgrades · Los Angeles" },
+  { years: "2018 – 2020",    role: "Graphic & Social Media Designer",        org: "Social Upgrades · Los Angeles" },
+  { years: "2016 – Present", role: "Freelance Graphic Designer",             org: "Upwork · 100% Job Success" },
+  { years: "2021 – 2025",    role: "CEO, WordPress Developer & Designer",    org: "Netlex NS · Novi Sad" },
+  { years: "2018 – 2020",    role: "Graphic Designer",                       org: "Grove Bags · Cleveland" },
+  { years: "2017 – 2018",    role: "Print & Graphic Designer",               org: "Inmoaction · Valencia" },
+  { years: "2014 – 2016",    role: "Junior Graphic Designer",                org: "Gentlemen & Lady · Novi Sad" }
+];
+
+const SKILLS = [
+  "WordPress", "Shopify", "WPBakery", "Salient", "Figma", "Canva",
+  "Photoshop", "Illustrator", "InDesign", "Branding & Visual Identity",
+  "Social Media Design", "E-commerce", "Project Management"
+];
+
+const LINKS = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/marko-petkovski-284b12129/", primary: true },
+  { label: "Upwork",   href: "https://www.upwork.com/freelancers/~0172c851b0842e8a40" },
+  { label: "Email",    href: "mailto:marko.petkovski1984@gmail.com" }
+];
+/* ============================================================ */
+
+const el = (t, c, txt) => { const e = document.createElement(t); if (c) e.className = c; if (txt) e.textContent = txt; return e; };
+
+const tl = document.getElementById('timeline');
+EXPERIENCE.forEach(x => {
+  const li = el('li');
+  li.append(el('div', 'tl-years', x.years));
+  const body = el('div');
+  body.append(el('div', 'tl-role', x.role), el('div', 'tl-org', x.org));
+  li.append(body);
+  tl.append(li);
+});
+
+const sk = document.getElementById('skills');
+SKILLS.forEach(s => sk.append(el('span', 'skill', s)));
+
+const lk = document.getElementById('links');
+LINKS.forEach(l => {
+  const a = el('a', l.primary ? 'primary' : '', l.label);
+  a.href = l.href;
+  if (l.href.startsWith('http')) { a.target = '_blank'; a.rel = 'noopener'; }
+  lk.append(a);
+});
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
