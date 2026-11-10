@@ -491,15 +491,15 @@
     .candidate-item {
       padding: 24px 32px;
       border: 1px solid var(--border);
-      border-bottom: none;
       display: flex;
       align-items: center;
       gap: 20px;
       background: var(--card);
+      position: relative;
       transition: border-color 0.2s;
     }
-    .candidate-item:last-child { border-bottom: 1px solid var(--border); }
-    .candidate-item:hover { border-color: var(--accent); }
+    .candidate-item + .candidate-item { margin-top: -1px; }
+    .candidate-item:hover { border-color: var(--accent); z-index: 1; }
 
     .candidate-dot {
       width: 6px; height: 6px;
@@ -568,6 +568,14 @@
     }
     .btn-gold:hover { background: var(--accent2); border-color: var(--accent2); }
 
+    /* GUTTERS (desktop) */
+    .gutter-label { padding: 0 60px 2px; }
+    .gutter-label-lg { padding: 120px 60px 0; }
+    .gutter-block { padding: 0 60px 120px; }
+    .gutter-block-lg { padding: 40px 60px 120px; }
+    .arrow-ne { display: inline-block; vertical-align: -1px; margin-left: 6px; flex-shrink: 0; }
+    .nav-live .arrow-ne { margin-left: 0; }
+
     /* ANIMATIONS */
     .fade-in {
       opacity: 0;
@@ -588,6 +596,30 @@
       .hero-meta { flex-direction: column; gap: 32px; }
       .case-footer { flex-direction: column; gap: 32px; text-align: center; }
     }
+    @media (max-width: 900px) {
+      .gutter-label, .gutter-label-lg { padding-left: 24px; padding-right: 24px; }
+      .gutter-block, .gutter-block-lg { padding-left: 24px; padding-right: 24px; }
+      .gutter-label-lg { padding-top: 72px; }
+      .gutter-block, .gutter-block-lg { padding-bottom: 72px; }
+      .gutter-block-lg { padding-top: 24px; }
+      .mockup-mixed { grid-template-columns: 1fr; }
+      .mockup-mixed .span2 { grid-column: auto; }
+      .mockup-mixed img { height: auto !important; }
+      .mockup-2up img { height: auto !important; }
+
+      /* hero */
+      nav { padding-top: 16px; padding-bottom: 16px; }
+      .hero { min-height: auto; padding-top: 120px; padding-bottom: 48px; }
+      .hero-index {
+        position: static;
+        transform: none;
+        writing-mode: horizontal-tb;
+        margin-bottom: 16px;
+      }
+      .hero-meta { margin-top: 32px; padding-top: 28px; }
+      .scroll-hint { display: none; }
+      section { padding-top: 72px; padding-bottom: 72px; }
+    }
   </style>
 </head>
 <body>
@@ -598,7 +630,7 @@
       <span>←</span> All Projects
     </a>
     <a href="https://dataqualityakademija.com/en/" target="_blank" class="nav-live">
-      Live Site ↗
+      Live Site <svg class="arrow-ne" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg>
     </a>
   </nav>
 
@@ -606,7 +638,7 @@
   <div class="hero">
     <div class="hero-bg"></div>
     <div class="hero-lines"></div>
-    <div class="hero-index">Case Study — 02</div>
+    <div class="hero-index">Case Study 04</div>
 
     <div class="hero-tag">Education · AI Testing · Serbia</div>
 
@@ -696,10 +728,10 @@
   </section>
 
   <!-- 2UP MOCKUPS -->
-  <div style="padding: 0 60px 2px;" class="fade-in">
+  <div class="gutter-label fade-in">
     <div class="section-label">Design — Desktop</div>
   </div>
-  <div style="padding: 0 60px 120px;">
+  <div class="gutter-block">
     <div class="mockup-2up fade-in">
       <img src="desktop1.png" alt="Homepage — Interactive Classes and Program Structure" style="width:100%; height:100%; object-fit:cover; display:block;" />
       <img src="desktop2.png" alt="Who Is This Course For — Candidates Section" style="width:100%; height:100%; object-fit:cover; display:block;" />
@@ -732,10 +764,10 @@
   </section>
 
   <!-- 3UP MOCKUPS -->
-  <div style="padding: 120px 60px 0;" class="fade-in">
+  <div class="gutter-label gutter-label-lg fade-in">
     <div class="section-label">Design — Mobile & Details</div>
   </div>
-  <div style="padding: 40px 60px 120px;">
+  <div class="gutter-block gutter-block-lg">
     <div class="mockup-3up fade-in">
       <img src="mobile1.png" alt="Mobile — Small Groups and Mentoring" style="width:100%; height:auto; display:block;" />
       <img src="mobile2.png" alt="Mobile — Book Consultation Flow" style="width:100%; height:auto; display:block;" />
@@ -849,10 +881,10 @@
   </section>
 
   <!-- GALLERY -->
-  <div style="padding: 0 60px 2px;" class="fade-in">
+  <div class="gutter-label fade-in">
     <div class="section-label">Gallery</div>
   </div>
-  <div style="padding: 0 60px 120px;">
+  <div class="gutter-block">
     <div class="mockup-mixed fade-in">
       <img src="tablet01.png" alt="Tablet — Full Program Overview" class="span2" style="width:100%; height:auto; display:block;" />
       <img src="br-color.png" alt="Brand Colors — Accent Color Settings" class="half" style="width:100%; height:auto; display:block;" />
@@ -868,7 +900,7 @@
     </div>
     <div class="footer-cta">
       <a href="portfolio.html" class="btn btn-outline">← Back to Portfolio</a>
-      <a href="https://dataqualityakademija.com/en/" target="_blank" class="btn btn-gold">Visit Live Site ↗</a>
+      <a href="https://dataqualityakademija.com/en/" target="_blank" class="btn btn-gold">Visit Live Site <svg class="arrow-ne" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 9.5L9.5 2.5M4 2.5h5.5V8"/></svg></a>
     </div>
   </div>
 
