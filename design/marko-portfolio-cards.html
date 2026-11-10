@@ -74,9 +74,14 @@ main{padding:80px 60px;max-width:1400px;margin:0 auto}
 .lb{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:2000;display:none;align-items:center;justify-content:center;padding:40px;cursor:zoom-out}
 .lb.open{display:flex}
 .lb img{max-width:100%;max-height:100%;object-fit:contain}
-.lb button{position:absolute;top:50%;background:none;border:1px solid var(--border);color:var(--text);width:48px;height:48px;font-size:20px;cursor:pointer}
+.lb button{position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,13,13,.6);border:1px solid var(--border);color:var(--text);width:32px;height:32px;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2}
 .lb button:hover{border-color:var(--accent);color:var(--accent)}
-.lb .p{left:24px}.lb .x{right:24px}
+.lb .p{left:16px}.lb .x{right:16px}
+.lb{touch-action:pan-y;-webkit-user-select:none;user-select:none}
+.lb img{cursor:grab;-webkit-user-drag:none;will-change:transform}
+.lb img.dragging{cursor:grabbing}
+.lb img.snap{transition:transform .2s ease}
+@media(max-width:700px){.lb{padding:16px}.lb button{width:28px;height:28px}.lb .p{left:8px}.lb .x{right:8px}}
 footer{padding:36px 60px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;max-width:1400px;margin:0 auto}
 @media(max-width:700px){footer{padding:28px 24px;flex-direction:column;gap:8px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
@@ -143,7 +148,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&l.classList
   <span>Novi Sad, Serbia</span>
 </footer>
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
-<div class="lb" id="lb"><button class="p" aria-label="Previous">←</button><img id="lbimg" alt=""/><button class="x" aria-label="Next">→</button></div>
+<div class="lb" id="lb"><button class="p" aria-label="Previous"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 2.5L4 7l4.5 4.5"/></svg></button><img id="lbimg" alt="" draggable="false"/><button class="x" aria-label="Next"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 2.5L10 7l-4.5 4.5"/></svg></button></div>
 
 <script>
 /* ===== EDIT HERE ===== */
@@ -190,14 +195,43 @@ document.getElementById('projects').innerHTML=projects.map((p,i)=>{
 /* lightbox */
 const lb=document.getElementById('lb'),im=document.getElementById('lbimg');
 const show=i=>{cur=(i+set.length)%set.length;im.src=set[cur];lb.classList.add('open')};
+let lastDrag=0;
 document.addEventListener('click',e=>{
   const t=e.target;
+  if(Date.now()-lastDrag<350){e.preventDefault();return}
   if(t.matches('img[data-set]')){set=all[t.dataset.set];return show(+t.dataset.i)}
   if(!lb.classList.contains('open'))return;
   if(t.closest('.p')){show(cur-1);return}
   if(t.closest('.x')){show(cur+1);return}
   lb.classList.remove('open');
 });
+/* drag / swipe left-right (mouse or finger) */
+let sx=0,sy=0,dx=0,drag=false,horiz=null,pid=null;
+lb.addEventListener('pointerdown',e=>{
+  if(!lb.classList.contains('open')||e.target.closest('button')||(e.pointerType==='mouse'&&e.button!==0))return;
+  drag=true;horiz=null;sx=e.clientX;sy=e.clientY;dx=0;pid=e.pointerId;
+  im.classList.remove('snap');
+});
+lb.addEventListener('pointermove',e=>{
+  if(!drag||e.pointerId!==pid)return;
+  const mx=e.clientX-sx,my=e.clientY-sy;
+  if(horiz===null&&(Math.abs(mx)>8||Math.abs(my)>8)){
+    horiz=Math.abs(mx)>Math.abs(my);
+    if(horiz){try{lb.setPointerCapture(pid)}catch(_){}im.classList.add('dragging')}
+  }
+  if(horiz){dx=mx;im.style.transform='translateX('+dx+'px)'}
+});
+const endDrag=e=>{
+  if(!drag||(e&&e.pointerId!==pid))return;
+  drag=false;im.classList.remove('dragging');
+  const moved=horiz&&Math.abs(dx)>8;
+  if(moved)lastDrag=Date.now();
+  im.classList.add('snap');im.style.transform='';
+  if(moved&&Math.abs(dx)>50&&set.length>1)show(dx>0?cur-1:cur+1);
+  dx=0;horiz=null;
+};
+lb.addEventListener('pointerup',endDrag);
+lb.addEventListener('pointercancel',endDrag);
 document.addEventListener('keydown',e=>{
   if(!lb.classList.contains('open'))return;
   if(e.key==='Escape')lb.classList.remove('open');
